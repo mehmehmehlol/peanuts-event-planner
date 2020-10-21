@@ -3,6 +3,8 @@ const CHARACTERS_URL = `${BASE_URL}/characters`
 const ACTIVITIES_URL = `${BASE_URL}/activities`
 const EVENTS_URL = `${BASE_URL}/events`
 
+
+
 // const sideBarLi = document.querySelectorAll('.leftcol ul li')
 // sideBarLi.addEventListener('click', displayCharacters())
 
@@ -12,7 +14,9 @@ const EVENTS_URL = `${BASE_URL}/events`
 
 // }
 
+
 // fetch
+
 getCharacters(CHARACTERS_URL)
 getActivities(ACTIVITIES_URL)
 getEvents(EVENTS_URL)
@@ -20,32 +24,23 @@ getEvents(EVENTS_URL)
 function getCharacters(url) {
     fetch(url)
         .then(res => res.json())
-        .then(characters => {
-            let characterAccess = characters.data
-            characterAccess.forEach(character => buildCharacter(character))
-
-        })
+        .then(characters => characters.data.forEach(character => {
+            buildCharacter(character)
+        }))
 }
 
 function getActivities(url) {
     fetch(url)
         .then(res => res.json())
-        .then(activities => {
-            let activityAccess = activities.data
-            activityAccess.forEach(activity => buildActivity(activity))
-        })
+        .then(activities => activities.data.forEach(activity => buildActivity(activity)))
 
 }
 
 function getEvents(url) {
     fetch(url)
         .then(res => res.json())
-        .then(events => {
-            let eventAccess = events.data
-            eventAccess.forEach(event => buildEvent(event))
-        })
+        .then(events => events.data.forEach(event => buildEvent(event)))
 }
-
 
 
 // DOM Events
@@ -74,7 +69,6 @@ function buildCharacter(character) {
 
     // add activities each character join
     // need a button here to edit and delete the characters
-
     divCharacter.append(img, h3, h5, pPersonal, pHobbies, pCp)
     div.append(divCharacter)
 }
@@ -94,7 +88,7 @@ function buildActivity(activity) {
     p.textContent = `Description: ${activityAttribute.description}`
 
     divActivity.append(h3, p)
-    div.append(divActivity)
+        // div.append(divActivity)
 
     // activity.events.forEach
 }
@@ -121,22 +115,5 @@ function buildEvent(event) {
     pTime.textContent = `Time: ${eventAttribute.time}`
 
     divEvent.append(h2, pDesc, pVenue, pLocation, pDate, pTime)
-    div.append(divEvent)
+        //     div.append(divEvent)
 }
-
-
-
-
-/*
-
-    <div id="events-happening">
-        <!--Add Events-->
-        <h3>${event.name}</h3>
-        <p>${event.description}</p>
-        <h5>${event.venue}</h5>
-        <h5>${event.location}</h5>
-        <h5>${event.date}</h5>
-        <h5>${event.time}</h5>
-    </div>
-</div>
- */
