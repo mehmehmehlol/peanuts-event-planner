@@ -16,39 +16,43 @@
         <div class="leftcol">
             <header>
                 <!--possibly an icon that can be clicked to lead back to home page-->
+                <button id="homeBtn" class="list">
+                    <img 
+                    src="https://images.squarespace-cdn.com/content/v1/5843057debbd1a9265704e03/1533827931736-6UWVVXD498IOOLEDMP3B/ke17ZwdGBToddI8pDm48kJGvPks7W-x-ufyzB9Tw0e1Zw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzwb00BviQxzGCm133ffOYzwwypB4bD5ISIaxBEu0_aLYDapOC4CyiXJt27lAtrGXs/on+doghouse.jpg"
+                    alt="snoopy-home"
+                    id="homeImg"
+                    />
+                </button>
             </header>
             <nav>
                 <!--Menu Bar-->
                 <ul>
                     <li>
-                        <button id="characterBtn">Characters</button>
+                        <button id="characterBtn" class="list">Characters</button></li>
                     </li>
                     <li>
-                        <button id="activityBtn">Activities</button>
+                        <button id='add-character-btn'>Add Character</button>
                     </li>
                     <li>
-                        <button id="eventBtn">Events</button>
+                        <button id='edit-character-btn'>Edit Character</button>
+                    </li>
+                    <li>
+                        <button id="activityBtn" class="list">Activities</button>
+                    </li>
+                    <li>
+                        <button id="eventBtn" class="list">Events</button>
                     </li>
                 </ul>
             </nav>
+        </div>
 
 
-            <div class="display">
-                <div id="character-list">
-                    <!--- Add Peanuts Characters here -->
-                </div>
+        <div class="display">
 
-                <div id="activity-list">
-                    <!--Add Activities here-->
-                </div>
-
-                <div id="event-list">
-                    <!--Add Events-->
-                </div>
-            </div>
+        </div>
 
     </main>
-    <script src="./src/index.js "></script>
+    <script src=" ./src/index.js "></script>
 </body>
 
 </html>

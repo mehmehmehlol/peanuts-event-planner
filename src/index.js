@@ -3,54 +3,121 @@ const CHARACTERS_URL = `${BASE_URL}/characters`
 const ACTIVITIES_URL = `${BASE_URL}/activities`
 const EVENTS_URL = `${BASE_URL}/events`
 
+const divDisplay = document.querySelector('.display')
+
+let addCharacterBtn = document.querySelector('#add-character-btn')
+
+// Handlers
+const buildCreateForm = () => {
+    buildForm()
+    let form = document.querySelector('form')
+    form.addEventListener('submit', (e) => handleFormSubmit(e, 'create'))
+
+}
 
 
-// const sideBarLi = document.querySelectorAll('.leftcol ul li')
-// sideBarLi.addEventListener('click', displayCharacters())
+// form.addEventListener('submit', (e) => handleFormSubmit(e))
 
-// const clearHTML = () => {
-//     let divDisplay = document.querySelector('.display')
-//     divDisplay.innerHTML = ''
+function handleFormSubmit(e, value) {
+    e.preventDefault()
+    let character = {
+        name: e.target.name.value,
+        nickname: e.target.nickname.value,
+        personality: e.target.personality.value,
+        hobbies: e.target.hobbies.value,
+        catchphrase: e.target.catchphrase.value
+    }
+    postCharacter(character)
+}
 
-// }
 
+
+const homeBtn = document.querySelector('#homeBtn')
+let homeImg = document.querySelector('#homeImg')
+homeBtn.style.cssText = 'width:70px; border-radius: 50%'
+homeImg.style.cssText = 'width:55px; border-radius: 50%'
+
+homeBtn.addEventListener('click', () => {
+    divDisplay.innerHTML = ''
+    getEvents()
+    getActivities()
+    getCharacters()
+})
+
+const characterBtn = document.querySelector('#characterBtn')
+characterBtn.addEventListener('click', () => {
+    divDisplay.innerHTML = ''
+    getCharacters()
+})
+
+const activityBtn = document.querySelector('#activityBtn')
+activityBtn.addEventListener('click', () => {
+    divDisplay.innerHTML = ''
+    getActivities()
+})
+
+const eventBtn = document.querySelector('#eventBtn')
+eventBtn.addEventListener('click', () => {
+    divDisplay.innerHTML = ''
+    getEvents()
+})
 
 // fetch
 
-getCharacters(CHARACTERS_URL)
-getActivities(ACTIVITIES_URL)
-getEvents(EVENTS_URL)
+getCharacters()
+getEvents()
+getActivities()
 
-function getCharacters(url) {
-    fetch(url)
+function getCharacters() {
+    fetch(CHARACTERS_URL)
         .then(res => res.json())
-        .then(characters => characters.data.forEach(character => {
-            buildCharacter(character)
-        }))
+        .then(characters => {
+            characters.data.forEach(character => buildCharacter(character))
+        })
 }
 
-function getActivities(url) {
-    fetch(url)
+function getActivities() {
+    fetch(ACTIVITIES_URL)
         .then(res => res.json())
         .then(activities => activities.data.forEach(activity => buildActivity(activity)))
 
 }
 
-function getEvents(url) {
-    fetch(url)
+function getEvents() {
+    fetch(EVENTS_URL)
         .then(res => res.json())
         .then(events => events.data.forEach(event => buildEvent(event)))
 }
 
+function postCharacter(character) {
+    fetch(CHARACTERS_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(character)
+        })
+        .then(res => res.json())
+        .then(character => {
+            console.log(character)
+                // buildCharacter(character)
+        })
+        .catch(error => console.log('Errors:', error))
+}
 
 // DOM Events
-function buildCharacter(character) {
-    let div = document.querySelector('#character-list')
-    let divCharacter = document.createElement('div')
 
+const divC = document.createElement('div')
+divC.id = 'character-list'
+
+function buildCharacter(character) {
+
+    // let h1 = document.createElement('h1')
+    let divCharacter = document.createElement('div')
     divCharacter.id = character.id
 
     let characterAttribute = character.attributes
+    let ul = document.createElement('ul')
 
     let img = document.createElement('img')
     let h3 = document.createElement('h3')
@@ -68,35 +135,59 @@ function buildCharacter(character) {
     pCp.textContent = `Catchphrase: ${characterAttribute.catchphrase}`
 
     // add activities each character join
+    let h5AN = document.createElement('h5')
+    h5AN.textContent = 'Actvities Joined'
+    characterAttribute.activities.forEach(activity => buildActivityLi(activity, ul))
+
     // need a button here to edit and delete the characters
-    divCharacter.append(img, h3, h5, pPersonal, pHobbies, pCp)
-    div.append(divCharacter)
+    divCharacter.append(img, h3, h5, pPersonal, pHobbies, pCp, h5AN, ul)
+    divC.append(divCharacter)
+    divDisplay.append(divC)
+}
+
+function buildActivityLi(activity, ul) {
+    let li = document.createElement('li')
+    li.setAttribute('data-activity-id', activity.id)
+    li.textContent = `Name: ${activity.name}`
+
+    ul.append(li)
 }
 
 function buildActivity(activity) {
-    let div = document.querySelector('#activity-list')
+    let div = document.createElement('div')
+    div.id = 'activity-list'
     let divActivity = document.createElement('div')
     divActivity.id = activity.id
+    let ul = document.createElement('ul')
 
     let activityAttribute = activity.attributes
 
     let h3 = document.createElement('h3')
     let p = document.createElement('p')
-    let pEvents = document.createElement('p')
+
 
     h3.textContent = `Name: ${activityAttribute.name}`
     p.textContent = `Description: ${activityAttribute.description}`
 
-    divActivity.append(h3, p)
-        // div.append(divActivity)
+    let h5Event = document.createElement('h5')
+    let pEvent = document.createElement('p')
+    h5Event.textContent = 'Event'
+    pEvent.textContent = activityAttribute.event.name
 
-    // activity.events.forEach
+    divActivity.append(h3, p, h5Event, pEvent)
+    div.append(divActivity)
+    divDisplay.append(div)
+
+
 }
 
 function buildEvent(event) {
-    let div = document.querySelector('#event-list')
+    let div = document.createElement('div')
+    div.id = 'event-list'
     let divEvent = document.createElement('div')
     divEvent.id = event.id
+
+    let ul = document.createElement('ul')
 
     let eventAttribute = event.attributes
 
@@ -114,6 +205,41 @@ function buildEvent(event) {
     pDate.textContent = `Date: ${eventAttribute.date}`
     pTime.textContent = `Time: ${eventAttribute.time}`
 
-    divEvent.append(h2, pDesc, pVenue, pLocation, pDate, pTime)
-        //     div.append(divEvent)
+    let h5AN = document.createElement('h5')
+    h5AN.textContent = 'Actvities in This Event'
+    eventAttribute.activities.forEach(activity => buildActivityLi(activity, ul))
+
+    divEvent.append(h2, pDesc, pVenue, pLocation, pDate, pTime, h5AN, ul)
+    div.append(divEvent)
+    divDisplay.append(div)
+}
+
+function buildForm() {
+    divDisplay.innerHTML = ''
+    let formItems = ['name', 'nickname', 'personality', 'hobbies', 'catchphrase']
+
+    let form = document.createElement('form')
+    let h2 = document.createElement('h2')
+    let submit = document.createElement('input')
+
+    h2.textContent = 'Add Characters'
+    submit.type = 'submit'
+
+    form.appendChild(h2)
+
+    formItems.forEach(item => {
+        let label = document.createElement('label')
+        let input = document.createElement('input')
+        label.for = item
+        label.textContent = item.toUpperCase()
+        input.type = 'text'
+        input.name = item
+        input.placeholder = item
+
+        form.appendChild(label, input)
+
+    })
+    form.appendChild(submit)
+    div.appendChild(form)
+
 }
