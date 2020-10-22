@@ -6,29 +6,43 @@ const EVENTS_URL = `${BASE_URL}/events`
 const divDisplay = document.querySelector('.display')
 
 let addCharacterBtn = document.querySelector('#add-character-btn')
+addCharacterBtn.addEventListener('click', () => buildForm())
+
+// const addCharacterForm = () => {
+//     buildForm()
+//     let form = document.querySelector('form')
+//     form.addEventListener('submit', (e) => handleFormSubmit(e, 'create'))
+
+// }
+
+let editCharacterBtn = document.querySelector('#edit-character-btn')
+    // editCharacterBtn.addEventListener('click', () => editCharacterForm())
+
+// const editCharacterForm = () => {
+//     buildEditForm()
+//     let form = document.querySelector('form')
+//     console.log(form)
+//     form.addEventListener('submit', (e) => handleFormSubmit(e, editedCharacter))
+// }
 
 // Handlers
-const buildCreateForm = () => {
-    buildForm()
-    let form = document.querySelector('form')
-    form.addEventListener('submit', (e) => handleFormSubmit(e, 'create'))
-
-}
-
-
-// form.addEventListener('submit', (e) => handleFormSubmit(e))
-
-function handleFormSubmit(e, value) {
+function handleFormSubmit(e) {
     e.preventDefault()
     let character = {
+        image: e.target.image.value,
         name: e.target.name.value,
         nickname: e.target.nickname.value,
         personality: e.target.personality.value,
         hobbies: e.target.hobbies.value,
         catchphrase: e.target.catchphrase.value
     }
+
     postCharacter(character)
+
+    //patchCharacter(character)
 }
+
+
 
 
 
@@ -72,7 +86,9 @@ function getCharacters() {
     fetch(CHARACTERS_URL)
         .then(res => res.json())
         .then(characters => {
-            characters.data.forEach(character => buildCharacter(character))
+            characters.data.forEach(character => {
+                buildCharacter(character)
+            })
         })
 }
 
@@ -99,19 +115,38 @@ function postCharacter(character) {
         })
         .then(res => res.json())
         .then(character => {
-            console.log(character)
-                // buildCharacter(character)
+            //debugger
+            divDisplay.innerHTML = ''
+            buildCharacter(character.data)
         })
         .catch(error => console.log('Errors:', error))
 }
 
+// function patchCharacter(character, id) {
+//     fetch(`CHARACTERS_URL/${id}`, {
+//             method: 'PATCH',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify(character)
+//         })
+//         .then(res => res.json())
+//         .then(character => {
+//             getCharacters(CHARACTERS_URL)
+//                 .then(() => {
+//                     buildCharacter(character.data)
+//                 })
+//         })
+// }
+
 // DOM Events
 
-const divC = document.createElement('div')
+
+let divC = document.createElement('div')
 divC.id = 'character-list'
+    // let editCharacterBtn = document.createElement('button')
 
 function buildCharacter(character) {
-
     // let h1 = document.createElement('h1')
     let divCharacter = document.createElement('div')
     divCharacter.id = character.id
@@ -140,7 +175,12 @@ function buildCharacter(character) {
     characterAttribute.activities.forEach(activity => buildActivityLi(activity, ul))
 
     // need a button here to edit and delete the characters
-    divCharacter.append(img, h3, h5, pPersonal, pHobbies, pCp, h5AN, ul)
+    let editCharacterBtn = document.createElement('button')
+    editCharacterBtn.id = 'edit-character-btn'
+    editCharacterBtn.textContent = 'Edit Character'
+    editCharacterBtn.addEventListener('click', () => editCharacterForm())
+
+    divCharacter.append(img, editCharacterBtn, h3, h5, pPersonal, pHobbies, pCp, h5AN, ul)
     divC.append(divCharacter)
     divDisplay.append(divC)
 }
@@ -156,11 +196,11 @@ function buildActivityLi(activity, ul) {
 function buildActivity(activity) {
     let div = document.createElement('div')
     div.id = 'activity-list'
+
+    let activityAttribute = activity.attributes
     let divActivity = document.createElement('div')
     divActivity.id = activity.id
     let ul = document.createElement('ul')
-
-    let activityAttribute = activity.attributes
 
     let h3 = document.createElement('h3')
     let p = document.createElement('p')
@@ -187,9 +227,9 @@ function buildEvent(event) {
     let divEvent = document.createElement('div')
     divEvent.id = event.id
 
-    let ul = document.createElement('ul')
-
     let eventAttribute = event.attributes
+
+    let ul = document.createElement('ul')
 
     let h2 = document.createElement('h2')
     let pDesc = document.createElement('p')
@@ -216,7 +256,7 @@ function buildEvent(event) {
 
 function buildForm() {
     divDisplay.innerHTML = ''
-    let formItems = ['name', 'nickname', 'personality', 'hobbies', 'catchphrase']
+    let formItems = ['image', 'name', 'nickname', 'personality', 'hobbies', 'catchphrase']
 
     let form = document.createElement('form')
     let h2 = document.createElement('h2')
@@ -231,15 +271,21 @@ function buildForm() {
         let label = document.createElement('label')
         let input = document.createElement('input')
         label.for = item
-        label.textContent = item.toUpperCase()
+        label.textContent = item
         input.type = 'text'
         input.name = item
         input.placeholder = item
 
-        form.appendChild(label, input)
+        form.append(label, input)
 
     })
-    form.appendChild(submit)
-    div.appendChild(form)
+    form.append(submit)
+    divDisplay.append(form)
+
+    form.addEventListener('submit', (e) => handleFormSubmit(e))
 
 }
+
+// function buildEditForm() {
+
+// }
