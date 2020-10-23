@@ -1,18 +1,47 @@
 body {
-    background-image: url('https://wallpaperaccess.com/full/1494880.jpg');
+    background-image: url('https://lh3.googleusercontent.com/proxy/lbDPA_wKI2UbrKesEjKjRW_TDIXK0m8Cm9Wj7Vm7s-QzHTbV7H51uQR-_drVYLqI806Bao1-5OG2elKGtfCJg14pvIOR37y8B0JpJso0ZoU');
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: auto;
+    background-size: 100% 100%;
     margin: 0;
     padding: 0;
     font-family: 'Architects Daughter', cursive;
 }
 
-header h2 {
-    background-color: #4caf50;
-    padding: 10px;
+header {
+    margin-left: 160px;
+    /* Same as the width of the sidebar */
+    padding: 5px 10px 20px 10px;
+    margin: 10px;
+    position: fixed;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    /* Set the navbar to fixed position */
+    top: 0;
+    /* Position the navbar at the top of the page */
+    width: 100%;
+    /* Full width */
+}
+
+header {
+    background-color: black;
+    background-size: 100px;
+    padding: 15px;
     margin: 0;
-    height: 50px;
+    height: 5em;
+    position: relative;
+    grid-template-columns: 1fr;
+}
+
+header h2 {
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    color: white;
+    padding: 5px 10px 5px 10px;
+    margin: 0px 10px 5px 10px;
 }
 
 main {
@@ -23,10 +52,26 @@ main {
     padding-bottom: 30px;
 }
 
-div.character_card {
+main {
+    margin-left: 160px;
+    /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}
+
+li {
+    list-style: none;
+}
+
+form label {
+    white-space: pre;
+}
+
+div.character_card,
+div.event_card,
+div.activity_card {
     display: inline-grid;
     background-color: #eeeeee;
-    height: auto;
+    height: 500px;
     width: 450px;
     box-shadow: 10px 10px grey;
     padding: 10px;
@@ -34,9 +79,101 @@ div.character_card {
     border-radius: 10px;
 }
 
-li {
-    list-style: none;
+div.display h2 {
+    font-family: 'Permanent Marker', cursive;
+    font-weight: 900;
+    font-size: 40px;
+    margin: 0
 }
 
+div.event_card {
+    height: 600px;
+    width: 450px;
+    background-image: linear-gradient(to right, green, yellow);
+}
 
-/* https: //peanuts.fandom.com/wiki/Woodstock  get background from here*/
+div.activity_card {
+    height: 450px;
+    width: 450px;
+    background-image: linear-gradient(to right, green, orange);
+}
+
+div.character_card p,
+div.character_card h5,
+div.character_card h3 {
+    padding: 1px;
+}
+
+div.character_card {
+    height: 1500px;
+    width: 450px;
+    background-image: linear-gradient(to right, orange, black);
+    color: white;
+    font-size: 25px;
+}
+
+div.character_card h2 {
+    color: black;
+}
+
+div.character_card img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: auto;
+}
+
+div.character_card button {
+    background-color: black;
+    color: white;
+    width: 100px;
+}
+
+#edit-character-btn,
+#delete-character-btn {
+    display: inline-block;
+    margin: 10px;
+    justify-content: center;
+}
+
+div.character_card button:hover {
+    background-color: orange;
+    color: white;
+    border-color: white;
+}
+
+.leftcol {
+    height: 100%;
+    /* Full-height: remove this if you want "auto" height */
+    width: 160px;
+    /* Set the width of the sidebar */
+    position: fixed;
+    /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    left: 0;
+    background-color: #ffa31a;
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+
+.leftcol li:hover {
+    color: white;
+    background: black;
+}
+
+.leftcol button {
+    border: none;
+    background: none;
+    color: black;
+}
+
+.leftcol button:hover {
+    border: none;
+    background: none;
+    color: white;
+}

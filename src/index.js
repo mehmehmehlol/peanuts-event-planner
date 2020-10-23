@@ -7,7 +7,10 @@ const divDisplay = document.querySelector('.display')
 
 
 let addCharacterBtn = document.querySelector('#add-character-btn')
-addCharacterBtn.addEventListener('click', () => buildForm())
+addCharacterBtn.addEventListener('click', () => {
+    divDisplay.innerHTML = ''
+    buildForm()
+})
 
 // const addCharacterForm = () => {
 //     buildForm()
@@ -79,33 +82,36 @@ function handleUpdateFormSubmit(e, value) {
 }
 
 
-const homeBtn = document.querySelector('#homeBtn')
-let homeImg = document.querySelector('#homeImg')
-homeBtn.style.cssText = 'width:70px; border-radius: 50%'
-homeImg.style.cssText = 'width:55px; border-radius: 50%'
+// const homeBtn = document.querySelector('#homeBtn')
+// let homeImg = document.querySelector('#homeImg')
+// homeBtn.style.cssText = 'width:70px; border-radius: 50%'
+// homeImg.style.cssText = 'width:55px; border-radius: 50%'
 
-homeBtn.addEventListener('click', () => {
-    divDisplay.innerHTML = ''
-    getEvents()
-    getActivities()
-    getCharacters()
-})
+// homeBtn.addEventListener('click', () => {
+//     divDisplay.innerHTML = ''
+//     getActivities()
+//     getCharacters()
+//     getEvents()
+// })
 
 const characterBtn = document.querySelector('#characterBtn')
 characterBtn.addEventListener('click', () => {
     divDisplay.innerHTML = ''
+    divC.innerHTML = ''
     getCharacters()
 })
 
 const activityBtn = document.querySelector('#activityBtn')
 activityBtn.addEventListener('click', () => {
     divDisplay.innerHTML = ''
+    divA.innerHTML = ''
     getActivities()
 })
 
 const eventBtn = document.querySelector('#eventBtn')
 eventBtn.addEventListener('click', () => {
     divDisplay.innerHTML = ''
+    divE.innerHTML = ''
     getEvents()
 })
 
@@ -119,6 +125,7 @@ function getCharacters() {
     fetch(CHARACTERS_URL)
         .then(res => res.json())
         .then(characters => {
+            divDisplay.innerHTML = ''
             characters.data.forEach(character => buildCharacter(character))
         })
 }
@@ -179,6 +186,7 @@ function buildCharacter(character) {
 
     let characterAttribute = character.attributes
     let ul = document.createElement('ul')
+    let h2Title = document.createElement('h2')
 
     let img = document.createElement('img')
     let h3 = document.createElement('h3')
@@ -187,6 +195,7 @@ function buildCharacter(character) {
     let pHobbies = document.createElement('p')
     let pCp = document.createElement('p')
 
+    h2Title.textContent = 'Character'
     img.src = characterAttribute.image
     img.className = 'character-avatar'
     h3.textContent = `Name: ${characterAttribute.name}`
@@ -195,7 +204,8 @@ function buildCharacter(character) {
     pHobbies.textContent = `Hobbies: ${characterAttribute.hobbies}`
     pCp.textContent = `Catchphrase: ${characterAttribute.catchphrase}`
 
-    // need a button here to edit and delete the characters
+    let btnContainer = document.createElement('div')
+        // need a button here to edit and delete the characters
     let editCharacterBtn = document.createElement('button')
     editCharacterBtn.id = 'edit-character-btn'
     editCharacterBtn.textContent = 'Edit Character'
@@ -211,15 +221,16 @@ function buildCharacter(character) {
     h5AN.textContent = 'Actvities Joined'
     characterAttribute.activities.forEach(activity => buildActivityLi(activity, ul))
 
-    divCharacter.append(img, editCharacterBtn, deleteCharacterBtn, h3, h5, pPersonal, pHobbies, pCp, h5AN, ul)
+    btnContainer.append(editCharacterBtn, deleteCharacterBtn)
+    divCharacter.append(h2Title, img, btnContainer, h3, h5, pPersonal, pHobbies, pCp, h5AN, ul)
     divC.append(divCharacter)
-        // divDisplay.append(divC)
+    divDisplay.append(divC)
 }
 
 function buildActivityLi(activity, ul) {
     let li = document.createElement('li')
     li.setAttribute('data-activity-id', activity.id)
-    li.textContent = `Name: ${activity.name}`
+    li.textContent = `${activity.name}`
 
     ul.append(li)
 }
@@ -232,14 +243,14 @@ function buildActivity(activity) {
     let activityAttribute = activity.attributes
     let divActivity = document.createElement('div')
     divActivity.id = activity.id
-    divActivity.className = 'acitivity_card'
+    divActivity.className = 'activity_card'
 
     let ul = document.createElement('ul')
-
+    let h2Title = document.createElement('h2')
     let h3 = document.createElement('h3')
     let p = document.createElement('p')
 
-
+    h2Title.textContent = "Activity"
     h3.textContent = `Name: ${activityAttribute.name}`
     p.textContent = `Description: ${activityAttribute.description}`
 
@@ -248,9 +259,9 @@ function buildActivity(activity) {
     h5Event.textContent = 'Event'
     pEvent.textContent = activityAttribute.event.name
 
-    divActivity.append(h3, p, h5Event, pEvent)
+    divActivity.append(h2Title, h3, p, h5Event, pEvent)
     divA.append(divActivity)
-        // divDisplay.append(divA)
+    divDisplay.append(divA)
 
 
 }
@@ -267,15 +278,16 @@ function buildEvent(event) {
     let eventAttribute = event.attributes
 
     let ul = document.createElement('ul')
-
-    let h2 = document.createElement('h2')
+    let h2Title = document.createElement('h2')
+    let h3 = document.createElement('h3')
     let pDesc = document.createElement('p')
     let pVenue = document.createElement('p')
     let pLocation = document.createElement('p')
     let pDate = document.createElement('p')
     let pTime = document.createElement('p')
 
-    h2.textContent = `Name: ${eventAttribute.name}`
+    h3.textContent = `Name: ${eventAttribute.name}`
+    h2Title.textContent = "Event"
 
     pDesc.textContent = `Description: ${eventAttribute.description}`
     pVenue.textContent = `Venue: ${eventAttribute.venue}`
@@ -287,12 +299,12 @@ function buildEvent(event) {
     h5AN.textContent = 'Actvities in This Event'
     eventAttribute.activities.forEach(activity => buildActivityLi(activity, ul))
 
-    divEvent.append(h2, pDesc, pVenue, pLocation, pDate, pTime, h5AN, ul)
+    divEvent.append(h2Title, h3, pDesc, pVenue, pLocation, pDate, pTime, h5AN, ul)
     divE.append(divEvent)
-        // divDisplay.append(divE)
+    divDisplay.append(divE)
 }
 
-divDisplay.append(divC, divA, divE)
+// divDisplay.append(divC, divA, divE)
 
 function buildForm() {
     let formItems = ['image', 'name', 'nickname', 'personality', 'hobbies', 'catchphrase']
