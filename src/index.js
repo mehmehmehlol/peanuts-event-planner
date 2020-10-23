@@ -365,7 +365,7 @@ function buildEditForm(divCharacter, character_id) {
 
         form.append(label, input)
 
-    })[]
+    })
 
     form.append(submit)
         // console.log(form)
