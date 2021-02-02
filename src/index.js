@@ -1,4 +1,4 @@
-const BASE_URL = "https://peanuts-event-planner-backend.herokuapp.com/"
+const BASE_URL = "https://peanuts-event-planner-backend.herokuapp.com"
 const CHARACTERS_URL = `${BASE_URL}/characters`
 const ACTIVITIES_URL = `${BASE_URL}/activities`
 const EVENTS_URL = `${BASE_URL}/events`
