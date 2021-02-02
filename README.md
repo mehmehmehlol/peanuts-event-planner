@@ -1,29 +1,72 @@
-# peanuts-event-planner
+Peanuts Event Planner
+====
 
+## Objectives
 
-// User Stories
+This project is designed as an event planner for our beloved Peanuts characters. 
 
-As a user, I can create a new friend for Snoopy
-As a user, I can read about Snoopy and his friends along with the participated fall activities.
-As a user, I can update the information of Snoopy and his friends, as well as the characters I create.
-As a user, I can delete character cards if I don't like it, and delete a fall activity from a character
-Bonus: add a favorite character button.
+## Motivations
 
-// Models and Controllers
+I am a big fan of the Peanuts comic and I love planning. I want to combine my two favorite things into a fun application, which is now known as the "Peanuts Fall Event Planner".
 
-Models:
+## Techology Used
 
-Snoopy and his friends
-Fall Activities (has many characters)
-Events
-character_activity
-Relationships:
+- Frontend: Vanilla Javascript
+- Backend: Ruby on Rails ([Backend Repository](https://github.com/mehmehmehlol/peanuts-event-planner-backend)
 
-Snoopy and his friends has many fall activities
+## Installation
 
-Each individual fall activity has many characters that can participate.
+- Clone this repository
+- Redirect to and clone backend repo 
 
-Events joins Snoopy and his friends and fall activities together, and it belongs to each character and belongs to each activity.
+## Screenshots
 
-has many activities.
-activity -> event_id events character has many activities, activity has many characters join: character_activity
+### Home
+
+![Home](Images/home.png)
+
+---
+
+### Before Log In
+
+![Pre-Login](Images/pre-login.png)
+
+---
+
+### After Log In
+
+![After-login](Images/after-login.png)
+
+---
+
+### About
+
+![About](Images/about.png)
+
+---
+
+### Explore 
+
+![Explore](Images/explore.gif)
+
+---
+
+### Favorite
+
+![Favorite](Images/favorite.gif)
+
+---
+
+### Light and Dark Theme 
+
+![Theme](Images/theme.gif)
+
+## Issues Currently Working On
+
+- Unable to persist the change of theme colors when accessing a new page (Hook is required)
+- Hit bugs when updating profile
+- Encounter issues when deploying to Heroku
+
+## Created By
+
+[Megan Lo](https://github.com/mehmehmehlol)
