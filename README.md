@@ -12,60 +12,42 @@ I am a big fan of the Peanuts comic and I love planning. I want to combine my tw
 ## Techology Used
 
 - Frontend: Vanilla Javascript
-- Backend: Ruby on Rails ([Backend Repository](https://github.com/mehmehmehlol/peanuts-event-planner-backend)
+- Backend: Ruby on Rails ([Backend Repository](https://github.com/mehmehmehlol/peanuts-event-planner-backend))
 
 ## Installation
 
 - Clone this repository
 - Redirect to and clone backend repo 
 
+## Demo Video
+
+[Demo Video](https://youtu.be/taTyGeA-I3k)
+
 ## Screenshots
 
 ### Home
 
-![Home](Images/home.png)
+![Home](images/home.png)
 
 ---
 
-### Before Log In
+### Activities
 
-![Pre-Login](Images/pre-login.png)
-
----
-
-### After Log In
-
-![After-login](Images/after-login.png)
+![Activities](images/activities.png)
 
 ---
 
-### About
+### Events
 
-![About](Images/about.png)
-
----
-
-### Explore 
-
-![Explore](Images/explore.gif)
+![Events](images/events.png)
 
 ---
 
-### Favorite
+## Currently Improving
 
-![Favorite](Images/favorite.gif)
-
----
-
-### Light and Dark Theme 
-
-![Theme](Images/theme.gif)
-
-## Issues Currently Working On
-
-- Unable to persist the change of theme colors when accessing a new page (Hook is required)
-- Hit bugs when updating profile
-- Encounter issues when deploying to Heroku
+- Form format
+- Unable to delete characters from the original database
+- Not able to load images when using Heroku backend database and Github pages
 
 ## Created By
 
