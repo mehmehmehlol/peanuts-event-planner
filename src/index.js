@@ -12,22 +12,6 @@ addCharacterBtn.addEventListener('click', () => {
     buildForm()
 })
 
-// const addCharacterForm = () => {
-//     buildForm()
-//     let form = document.querySelector('form')
-//     form.addEventListener('submit', (e) => handleFormSubmit(e, 'create'))
-
-// }
-
-// let editCharacterBtn = document.querySelector('#edit-character-btn')
-// editCharacterBtn.addEventListener('click', () => editCharacterForm())
-
-// const editCharacterForm = () => {
-//     buildEditForm()
-//     let form = document.querySelector('form')
-//     console.log(form)
-//     form.addEventListener('submit', (e) => handleFormSubmit(e, editedCharacter))
-// }
 
 // Handlers
 function handleFormSubmit(e) {
@@ -54,7 +38,6 @@ function handleUpdateFormSubmit(e, value) {
             hobbies: e.target.hobbies.value,
             catchphrase: e.target.catchphrase.value,
         }
-        // debugger
     fetch(`${BASE_URL}/characters/${value}`, {
             method: 'PATCH',
             headers: {
@@ -82,18 +65,6 @@ function handleUpdateFormSubmit(e, value) {
 }
 
 
-// const homeBtn = document.querySelector('#homeBtn')
-// let homeImg = document.querySelector('#homeImg')
-// homeBtn.style.cssText = 'width:70px; border-radius: 50%'
-// homeImg.style.cssText = 'width:55px; border-radius: 50%'
-
-// homeBtn.addEventListener('click', () => {
-//     divDisplay.innerHTML = ''
-//     getActivities()
-//     getCharacters()
-//     getEvents()
-// })
-
 const characterBtn = document.querySelector('#characterBtn')
 characterBtn.addEventListener('click', () => {
     divDisplay.innerHTML = ''
@@ -116,18 +87,17 @@ eventBtn.addEventListener('click', () => {
 })
 
 // fetch
-
 getCharacters();
 getEvents();
 getActivities();
 
 function getCharacters() {
     fetch(CHARACTERS_URL)
-        .then(res => res.json())
-        .then(characters => {
-            divDisplay.innerHTML = ''
-            characters.data.forEach(character => buildCharacter(character))
-        })
+    .then(res => res.json())
+    .then(characters => {
+        divDisplay.innerHTML = ''
+        characters.data.forEach(character => buildCharacter(character))
+    })
 }
 
 function getActivities() {
@@ -174,8 +144,6 @@ function deleteCharacter(character, divCharacter) {
 
 
 // DOM Events
-
-
 let divC = document.createElement('div')
 divC.id = 'character-list'
 
